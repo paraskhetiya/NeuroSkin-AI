@@ -17,7 +17,9 @@ cohere
 beautifulsoup4
 requests
 lxml
+pydantic
 python-dotenv
 nest-asyncio
 grad-cam
 numpy
+opencv-python-headless

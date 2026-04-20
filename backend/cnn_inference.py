@@ -10,7 +10,7 @@ import torch.nn as nn
 from torchvision import models, transforms
 from PIL import Image
 
-from .config import (
+from config import (
     LESION_MODEL_PATH, SKIN_MODEL_PATH,
     LESION_CLASSES, SKIN_CLASSES,
     IMG_SIZE, IMAGENET_MEAN, IMAGENET_STD,
@@ -82,7 +82,7 @@ def predict_top3(model: nn.Module, image_tensor: torch.Tensor, class_names: list
         results.append({
             "id": class_id,
             "name": class_id.replace("_", " ").title(),
-            "confidence": float(prob.item()),
+            "confidence": round(prob.item() * 100, 1),
         })
     return results
 
@@ -97,11 +97,11 @@ def _ensure_models_loaded():
     if _lesion_model is None:
         print(f"[CNN] Loading lesion model from {LESION_MODEL_PATH} ...")
         _lesion_model = load_model(LESION_MODEL_PATH, len(LESION_CLASSES))
-        print("[CNN] Lesion model loaded ✓")
+        print("[CNN] Lesion model loaded [OK]")
     if _skin_model is None:
         print(f"[CNN] Loading skin model from {SKIN_MODEL_PATH} ...")
         _skin_model = load_model(SKIN_MODEL_PATH, len(SKIN_CLASSES))
-        print("[CNN] Skin model loaded ✓")
+        print("[CNN] Skin model loaded [OK]")
 
 
 def get_lesion_model() -> nn.Module:
@@ -134,6 +134,6 @@ def run_dual_cnn(image_bytes: bytes) -> list:
     total = sum(p["confidence"] for p in top3)
     if total > 0:
         for p in top3:
-            p["confidence"] = float(p["confidence"] / total)
+            p["confidence"] = round(p["confidence"] / total * 100, 1)
 
     return top3

@@ -1,2 +1,50 @@
-
+# ── Environment & Secrets ─────────────────────────────────────────
 .env
+.env.local
+.env.*.local
+
+# ── CNN Model weights (large files ~90MB each — store on Git LFS or cloud) ──
+CNN Models/*.pth
+CNN Models/*.pt
+*.pth
+*.pt
+
+# ── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+venv/
+.venv/
+env/
+ENV/
+
+# ── Node / Frontend ───────────────────────────────────────────────
+node_modules/
+.npm
+dist/
+.cache/
+*.tsbuildinfo
+
+# ── Jupyter Notebooks (outputs) ───────────────────────────────────
+.ipynb_checkpoints/
+
+# ── OS ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Logs ──────────────────────────────────────────────────────────
+*.log
+logs/
